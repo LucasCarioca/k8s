@@ -22,9 +22,7 @@ echo <PASSWORD> | base64 -d
 kubectl port-forward pod/<ARGO_SERVER_POD_NAME> 8080:8080 -n argocd     
 ```
 
-
-
 install datadog 
 ```
-helm upgrade datadog -f datadog-values.yaml --set datadog.site='us5.datadoghq.com' --set datadog.apiKey=<API_KEY> datadog/datadog --install
+helm upgrade datadog -f datadog-values-<CLUSTER_NAME>.yaml --set datadog.site='us5.datadoghq.com' --set datadog.apiKey=<API_KEY> datadog/datadog --install
 ```
