@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wedding-admin
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: wedding
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: k8s/app
+    repoURL: 'https://github.com/LucasCarioca/wedding-registration-admin'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

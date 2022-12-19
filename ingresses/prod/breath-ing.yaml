@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: breath
+  namespace: breath
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: www.countmybreaths.com
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: breath
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+    - host: countmybreaths.com
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: breath
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - www.countmybreaths.com
+        - countmybreaths.com
+      secretName: breath-tls

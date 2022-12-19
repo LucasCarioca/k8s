@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wedding-service
+  namespace: wedding
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: api.karenandlucas.com
+      http:
+        paths:
+          - path: /
+            backend:
+              service:
+                name: wedding-service
+                port:
+                  number: 80
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - api.karenandlucas.com
+      secretName: wedding-api-tls
